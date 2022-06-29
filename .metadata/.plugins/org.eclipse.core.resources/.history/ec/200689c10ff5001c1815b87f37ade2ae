@@ -1,0 +1,24 @@
+package com.repository;
+
+import org.springframework.data.jdbc.repository.query.Query;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import com.model.User;
+import com.model.WishList;
+import com.model.completedList;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Integer> {
+
+	void save(WishList w);
+
+	void save(completedList c);
+
+	void findByEmailId(String email);
+
+	@Query("select p from user p where p.email = :email and p.password =:password ")
+	User GetUserByEmailAndPassWord(@Param("email") String email, @Param("password") String password);
+
+}
